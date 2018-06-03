@@ -1,1 +1,1 @@
-include ':fragstack'
+include ':fragstack', ':app'
