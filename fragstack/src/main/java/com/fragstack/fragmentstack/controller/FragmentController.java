@@ -45,6 +45,8 @@ public class FragmentController {
         if (fragment != null) {
             if (isRootFragment(fragment)) {
                 String tag = ((StackableFragment) fragment).getFragmentStackName();
+                if (tag == null)
+                    tag = fragment.getClass().getSimpleName() + "##" + mTagsStack.size();
                 if (mTagsStack.contains(tag)) { // we already have the root fragment attached
                     displayRootFragment(tag, mTagsStack.peek(), shouldAnimate);
                 } else {
