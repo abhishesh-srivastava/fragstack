@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.fragstack.app.fragments.FragmentTabA;
 import com.fragstack.app.fragments.FragmentTabB;
 import com.fragstack.controller.FragmentController;
+import com.fragstack.controller.helper.FragmentTransactionOptions;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void displayFragment(Fragment fragment) {
-        mFragmentController.displayFragment(fragment, false);
+        FragmentTransactionOptions fragmentTransactionOptions = new FragmentTransactionOptions.Builder()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out).build();
+        mFragmentController.displayFragment(fragment, fragmentTransactionOptions);
     }
 }

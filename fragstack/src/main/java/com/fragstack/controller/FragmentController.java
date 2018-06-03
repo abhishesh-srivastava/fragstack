@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
 import com.fragstack.contracts.StackableFragment;
+import com.fragstack.controller.helper.FragmentTransactionOptions;
 import com.fragstack.fragments.ContainerFragment;
 
 import java.util.HashMap;
@@ -41,40 +42,39 @@ public class FragmentController {
             onRestoreInstanceState(savedInstanceState);
     }
 
-    public void displayFragment(Fragment fragment, boolean shouldAnimate) {
+    public void displayFragment(Fragment fragment, FragmentTransactionOptions fragmentTransactionOptions) {
         if (fragment != null) {
             if (isRootFragment(fragment)) {
                 String tag = ((StackableFragment) fragment).getFragmentStackName();
                 if (tag == null)
                     tag = fragment.getClass().getSimpleName() + "##" + mTagsStack.size();
                 if (mTagsStack.contains(tag)) { // we already have the root fragment attached
-                    displayRootFragment(tag, mTagsStack.peek(), shouldAnimate);
+                    displayRootFragment(tag, mTagsStack.peek(), fragmentTransactionOptions);
                 } else {
                     ContainerFragment lFragment = (ContainerFragment) ContainerFragment.newInstance(tag);
                     lFragment.wrapFragment(fragment);
                     String lastTag = !mTagsStack.isEmpty() ? mTagsStack.peek() : null;
                     mTagsStack.push(tag);
                     mRootFragments.put(tag, lFragment);
-                    displayRootFragment(tag, lastTag, shouldAnimate);
+                    displayRootFragment(tag, lastTag, fragmentTransactionOptions);
                 }
             } else {
                 if (!mTagsStack.isEmpty()) {
                     ContainerFragment topFragment = (ContainerFragment) mRootFragments.get(mTagsStack.peek());
                     if (!topFragment.isAdded()) {
-                        performTransaction(topFragment, mTagsStack.peek(), CMD_REPLACE, shouldAnimate);
+                        performTransaction(topFragment, mTagsStack.peek(), CMD_REPLACE, fragmentTransactionOptions);
                     }
                     topFragment.performOps(fragment);
-                } else { // this will be true only in case of deeplinks
-                    performTransaction(fragment, "root", CMD_REPLACE, shouldAnimate);
+                } else { // uh Oh, I have no root fragment, let me create one for you
+                    performTransaction(fragment, "root", CMD_REPLACE, fragmentTransactionOptions);
                 }
             }
         }
     }
 
-    public void displayFragment(String fragmentTag, boolean shouldAnimate) {
-        displayRootFragment(fragmentTag, !mTagsStack.isEmpty() ? mTagsStack.peek() : null, shouldAnimate);
+    public void displayFragment(String fragmentTag, FragmentTransactionOptions fragmentTransactionOptions) {
+        displayRootFragment(fragmentTag, !mTagsStack.isEmpty() ? mTagsStack.peek() : null, fragmentTransactionOptions);
     }
-
 
     public boolean popBackStackImmediate() {
         return popBackStackImmediate(null);
@@ -120,7 +120,7 @@ public class FragmentController {
         }
     }
 
-    private void displayRootFragment(String fragmentTag, String lastTag, boolean shouldAnimate) {
+    private void displayRootFragment(String fragmentTag, String lastTag, FragmentTransactionOptions fragmentTransactionOptions) {
         Fragment fragmentToAttach = mRootFragments.get(fragmentTag);
         boolean performTransaction = false;
         if (!mTagsStack.isEmpty()) {
@@ -150,7 +150,7 @@ public class FragmentController {
                 mTagsStack.remove(fragmentTag);
                 mTagsStack.push(fragmentTag);
             }
-            performTransaction(fragmentToAttach, fragmentTag, CMD_REPLACE, shouldAnimate);
+            performTransaction(fragmentToAttach, fragmentTag, CMD_REPLACE, fragmentTransactionOptions);
         }
     }
 
@@ -164,13 +164,13 @@ public class FragmentController {
                 Fragment fragmentToDisplay = mRootFragments.get(fragmentTagToDisplay);
                 if (!fragmentToDisplay.isAdded())
                     fragmentToDisplay.setInitialSavedState(mSavedStates.get(fragmentTagToDisplay));
-                return performTransaction(fragmentToDisplay, fragmentTagToDisplay, CMD_REPLACE, true);
+                return performTransaction(fragmentToDisplay, fragmentTagToDisplay, CMD_REPLACE, null);
             }
         }
         return false;
     }
 
-    private boolean performTransaction(@NonNull Fragment fragment, @NonNull String fragmentTag, int command, boolean shouldAnimate) {
+    private boolean performTransaction(@NonNull Fragment fragment, @NonNull String fragmentTag, int command, FragmentTransactionOptions fragmentTransactionOptions) {
         FragmentTransaction ft = mFragmentManager.beginTransaction();
         fragmentTrasState = false;
         switch (command) {
