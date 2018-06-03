@@ -1,4 +1,4 @@
-package com.fragstack.fragmentstack.controller;
+package com.fragstack.controller;
 
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -9,8 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
-import com.fragstack.fragmentstack.contracts.StackableFragment;
-import com.fragstack.fragmentstack.fragments.ContainerFragment;
+import com.fragstack.contracts.StackableFragment;
+import com.fragstack.fragments.ContainerFragment;
 
 import java.util.HashMap;
 import java.util.Map;

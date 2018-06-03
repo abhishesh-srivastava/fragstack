@@ -1,4 +1,4 @@
-package com.fragstack.fragmentstack.contracts;
+package com.fragstack.contracts;
 
 import android.support.v4.app.Fragment;
 

@@ -1,4 +1,4 @@
-package com.fragstack.fragmentstack.contracts;
+package com.fragstack.contracts;
 
 public interface StackableFragment {
     public String getFragmentStackName();

@@ -1,4 +1,4 @@
-package com.fragstack.fragmentstack;
+package com.fragstack;
 
 import org.junit.Test;
 

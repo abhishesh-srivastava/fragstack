@@ -1,4 +1,4 @@
-package com.fragstack.fragmentstack.fragments;
+package com.fragstack.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fragstack.fragmentstack.R;
-import com.fragstack.fragmentstack.contracts.FragmentTransactionListener;
-import com.fragstack.fragmentstack.contracts.RootFragmentListener;
+import com.fragstack.R;
+import com.fragstack.contracts.FragmentTransactionListener;
+import com.fragstack.contracts.RootFragmentListener;
 
 import java.util.ArrayList;
 import java.util.List;

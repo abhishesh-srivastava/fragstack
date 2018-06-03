@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.fragstack.app.MainActivity;
 import com.fragstack.app.R;
-import com.fragstack.fragmentstack.contracts.StackableFragment;
+import com.fragstack.contracts.StackableFragment;
 
 import java.util.Random;
 
