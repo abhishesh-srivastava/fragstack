@@ -19,7 +19,7 @@ here R.id.frame_container corresponds to id's on which fragments view are added/
 # To display a fragment, call
 
         FragmentTransactionOptions fragmentTransactionOptions = new FragmentTransactionOptions.Builder()
-        															.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out).build();
+        			.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out).build();
         mFragmentController.displayFragment(fragment, fragmentTransactionOptions); // its not necessary to provide FragmentTransactionOptions, pass null if animation, transition or shared element animations are not required
 
 # Back Press Handling :
