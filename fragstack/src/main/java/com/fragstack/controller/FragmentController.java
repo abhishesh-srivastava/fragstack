@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
 import com.fragstack.contracts.StackableFragment;
-import com.fragstack.controller.helper.FragmentTransactionOptions;
 import com.fragstack.fragments.ContainerFragment;
 
 import java.util.HashMap;

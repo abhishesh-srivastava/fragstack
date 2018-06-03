@@ -9,7 +9,7 @@ import android.widget.Button;
 import com.fragstack.app.fragments.FragmentTabA;
 import com.fragstack.app.fragments.FragmentTabB;
 import com.fragstack.controller.FragmentController;
-import com.fragstack.controller.helper.FragmentTransactionOptions;
+import com.fragstack.controller.FragmentTransactionOptions;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

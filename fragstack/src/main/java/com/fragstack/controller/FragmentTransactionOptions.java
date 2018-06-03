@@ -1,4 +1,4 @@
-package com.fragstack.controller.helper;
+package com.fragstack.controller;
 
 import android.support.annotation.AnimRes;
 import android.support.annotation.AnimatorRes;
@@ -45,7 +45,7 @@ public class FragmentTransactionOptions {
     @AnimRes
     int popExit;
 
-    public FragmentTransactionOptions(Builder builder) {
+    private FragmentTransactionOptions(Builder builder) {
         this.transitionStyle = builder.transitionStyle;
         this.transit = builder.transit;
         this.sharedElement = builder.sharedElement;
