@@ -1,5 +1,8 @@
 # fragstack :  Android library for managing individual fragment backstack. 
 
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-fragstack-green.svg?style=flat )]( https://android-arsenal.com/details/1/6990 ) [![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=15)
+
+
 An Easy to use library for managing individual fragment back stack as Instagram and Youtube does.
 Easily pluggable with client code, not much code change needed.
 
@@ -27,4 +30,3 @@ here R.id.frame_container corresponds to id's on which fragments view are added/
         if (!mFragmentController.popBackStackImmediate())
             super.onBackPressed();
     }
-
