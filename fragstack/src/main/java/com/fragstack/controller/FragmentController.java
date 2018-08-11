@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -196,6 +197,7 @@ public class FragmentController {
                 break;
         }
         try {
+            bindFragmentTransactionOptions(ft, fragmentTransactionOptions);
             ft.commitAllowingStateLoss();
             fragmentTrasState = true;
             return true;
@@ -203,6 +205,21 @@ public class FragmentController {
 
         }
         return false;
+    }
+
+    private void bindFragmentTransactionOptions(@NonNull FragmentTransaction fragmentTransaction, @Nullable FragmentTransactionOptions fragmentTransactionOptions) {
+        if (fragmentTransactionOptions != null) {
+            if (fragmentTransactionOptions.sharedElement != null) {
+                fragmentTransaction.addSharedElement(fragmentTransactionOptions.sharedElement, fragmentTransactionOptions.name);
+            }
+            if (fragmentTransactionOptions.transit != FragmentTransaction.TRANSIT_UNSET) {
+                fragmentTransaction.setTransition(fragmentTransactionOptions.transit);
+            }
+            if (fragmentTransactionOptions.transitionStyle != 0) {
+                fragmentTransaction.setTransitionStyle(fragmentTransactionOptions.transitionStyle);
+            }
+            fragmentTransaction.setCustomAnimations(fragmentTransactionOptions.enter, fragmentTransactionOptions.exit, fragmentTransactionOptions.popEnter, fragmentTransactionOptions.popExit);
+        }
     }
 
     public Fragment getCurrentFragment() {

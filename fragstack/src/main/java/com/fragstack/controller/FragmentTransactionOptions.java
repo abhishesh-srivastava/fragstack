@@ -13,17 +13,17 @@ import java.lang.annotation.RetentionPolicy;
 
 public class FragmentTransactionOptions {
 
-    @IntDef({FragmentTransaction.TRANSIT_NONE, FragmentTransaction.TRANSIT_FRAGMENT_OPEN,
+    @IntDef({FragmentTransaction.TRANSIT_UNSET, FragmentTransaction.TRANSIT_NONE, FragmentTransaction.TRANSIT_FRAGMENT_OPEN,
             FragmentTransaction.TRANSIT_FRAGMENT_CLOSE, FragmentTransaction.TRANSIT_FRAGMENT_FADE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Transit {
     }
 
     @StyleRes
-    int transitionStyle;
+    int transitionStyle = 0;
 
     @Transit
-    int transit;
+    int transit = FragmentTransaction.TRANSIT_UNSET;
 
     View sharedElement;
 
@@ -31,19 +31,19 @@ public class FragmentTransactionOptions {
 
     @AnimatorRes
     @AnimRes
-    int enter;
+    int enter = 0;
 
     @AnimatorRes
     @AnimRes
-    int exit;
+    int exit = 0;
 
     @AnimatorRes
     @AnimRes
-    int popEnter;
+    int popEnter = 0;
 
     @AnimatorRes
     @AnimRes
-    int popExit;
+    int popExit = 0;
 
     private FragmentTransactionOptions(Builder builder) {
         this.transitionStyle = builder.transitionStyle;
