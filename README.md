@@ -10,6 +10,22 @@ To implement, client needs to implement StackableFragment of com.fragstack.contr
 Client needs to provide a unique name in getFragmentName() method.
 
 # Example : 
+# Download via gradle
+Step 1. Add the specific repository to your build file:
+
+    repositories {
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+
+Step 2. Add the dependency in your build file (do not forget to specify the correct qualifier, usually "aar"):
+
+    dependencies {
+        compile 'com.github.abhishesh-srivastava:fragstack:' + $latest.version
+    }
+
+
 # Integration with BottomBar
 If there are 4 tabs in BottomBar and each tab corresponds to different fragment and want to have individual stacks. Client should implement StackableFragment and provide implementation for getFragmentName() and onFragmentScroll() method.
 
