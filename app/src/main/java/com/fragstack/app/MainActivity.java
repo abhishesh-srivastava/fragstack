@@ -1,10 +1,11 @@
 package com.fragstack.app;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.fragstack.app.fragments.FragmentTabA;
 import com.fragstack.app.fragments.FragmentTabB;

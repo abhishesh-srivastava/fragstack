@@ -1,18 +1,21 @@
 package com.fragstack.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.fragstack.R;
 import com.fragstack.contracts.FragmentTransactionListener;
 import com.fragstack.contracts.RootFragmentListener;
+import com.fragstack.controller.FragmentTransactionOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +66,10 @@ public class ContainerFragment extends Fragment {
         mFragmentsToAdd.clear();
     }
 
+    private void performOps(Fragment fragment) {
+        performOps(fragment, null);
+    }
+
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
@@ -78,7 +85,7 @@ public class ContainerFragment extends Fragment {
         return "";
     }
 
-    public void performOps(Fragment fragment) {
+    public void performOps(Fragment fragment, @Nullable FragmentTransactionOptions fragmentTransactionOptions) {
         if (isAdded() && fragment != null) {
             String tag = String.valueOf(getChildFragmentManager().getBackStackEntryCount());
             FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
@@ -87,6 +94,9 @@ public class ContainerFragment extends Fragment {
             try {
                 if (mFragmentTransactionListener != null) {
                     mFragmentTransactionListener.onCommit(fragment);
+                }
+                if (fragmentTransactionOptions != null) {
+                    bindFragmentTransactionOptions(fragmentTransaction, fragmentTransactionOptions);
                 }
                 fragmentTransaction.commitAllowingStateLoss();
                 fragment.setHasOptionsMenu(true);
@@ -101,6 +111,27 @@ public class ContainerFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mContext = null;
+    }
+
+    @SuppressLint("WrongConstant")
+    private void bindFragmentTransactionOptions(@NonNull FragmentTransaction fragmentTransaction, @Nullable FragmentTransactionOptions fragmentTransactionOptions) {
+        if (fragmentTransactionOptions != null) {
+            if (fragmentTransactionOptions.sharedElement != null) {
+                fragmentTransaction.addSharedElement(fragmentTransactionOptions.sharedElement,
+                        fragmentTransactionOptions.name);
+            }
+            if (fragmentTransactionOptions.transit != FragmentTransaction.TRANSIT_UNSET) {
+                fragmentTransaction.setTransition(fragmentTransactionOptions.transit);
+            }
+            if (fragmentTransactionOptions.transitionStyle != 0) {
+                fragmentTransaction.setTransitionStyle(fragmentTransactionOptions.transitionStyle);
+            }
+            fragmentTransaction.setCustomAnimations(fragmentTransactionOptions.enter,
+                    fragmentTransactionOptions.exit,
+                    fragmentTransactionOptions.popEnter,
+                    fragmentTransactionOptions.popExit);
+        }
+
     }
 
     public int getFragmentCount() {

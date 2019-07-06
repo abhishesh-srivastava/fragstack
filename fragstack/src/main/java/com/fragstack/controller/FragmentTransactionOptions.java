@@ -1,11 +1,12 @@
 package com.fragstack.controller;
 
-import android.support.annotation.AnimRes;
-import android.support.annotation.AnimatorRes;
-import android.support.annotation.IntDef;
-import android.support.annotation.StyleRes;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+
+import androidx.annotation.AnimRes;
+import androidx.annotation.AnimatorRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.StyleRes;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -20,30 +21,30 @@ public class FragmentTransactionOptions {
     }
 
     @StyleRes
-    int transitionStyle = 0;
+    public int transitionStyle = 0;
 
     @Transit
-    int transit = FragmentTransaction.TRANSIT_UNSET;
+    public int transit = FragmentTransaction.TRANSIT_UNSET;
 
-    View sharedElement;
+    public View sharedElement;
 
-    String name;
-
-    @AnimatorRes
-    @AnimRes
-    int enter = 0;
+    public String name;
 
     @AnimatorRes
     @AnimRes
-    int exit = 0;
+    public int enter = 0;
 
     @AnimatorRes
     @AnimRes
-    int popEnter = 0;
+    public int exit = 0;
 
     @AnimatorRes
     @AnimRes
-    int popExit = 0;
+    public int popEnter = 0;
+
+    @AnimatorRes
+    @AnimRes
+    public int popExit = 0;
 
     private FragmentTransactionOptions(Builder builder) {
         this.transitionStyle = builder.transitionStyle;

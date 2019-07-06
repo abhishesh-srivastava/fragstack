@@ -2,13 +2,14 @@ package com.fragstack.controller;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.fragstack.contracts.StackableFragment;
 import com.fragstack.fragments.ContainerFragment;
@@ -64,7 +65,7 @@ public class FragmentController {
                     if (!topFragment.isAdded()) {
                         performTransaction(topFragment, mTagsStack.peek(), CMD_REPLACE, fragmentTransactionOptions);
                     }
-                    topFragment.performOps(fragment);
+                    topFragment.performOps(fragment, fragmentTransactionOptions);
                 } else { // uh Oh, I have no root fragment, let me create one for you
                     performTransaction(fragment, "root", CMD_REPLACE, fragmentTransactionOptions);
                 }
